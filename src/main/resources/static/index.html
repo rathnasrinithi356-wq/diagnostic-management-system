@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Diagnostic Laboratory Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for crisp modern medical UI typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ================= SIDEBAR NAVIGATION ================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+                    </svg>
+                    <span class="pulse-dot"></span>
+                </div>
+                <div class="brand-text">
+                    <h2>Apex Diagnostics</h2>
+                    <span class="brand-sub">Clinical Pathology Lab</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-group-label">MAIN CLINICAL MODULES</div>
+                <button class="nav-item active" data-tab="dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+
+                <button class="nav-item" data-tab="patients">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span>Patient Management</span>
+                    <span class="nav-badge" id="nav-patient-count">0</span>
+                </button>
+
+                <button class="nav-item" data-tab="tests">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5h0c-1.4 0-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><path d="M9 16h6"/>
+                    </svg>
+                    <span>Test Orders</span>
+                    <span class="nav-badge" id="nav-test-count">0</span>
+                </button>
+
+                <button class="nav-item" data-tab="samples">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/>
+                    </svg>
+                    <span>Sample Collection</span>
+                    <span class="nav-badge warning" id="nav-sample-count">0</span>
+                </button>
+
+                <button class="nav-item" data-tab="processing">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/>
+                    </svg>
+                    <span>Test Processing</span>
+                    <span class="nav-indicator-pulse"></span>
+                </button>
+
+                <button class="nav-item" data-tab="results">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                    </svg>
+                    <span>Result Management</span>
+                </button>
+
+                <button class="nav-item" data-tab="reports">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    <span>Lab Reports</span>
+                    <span class="nav-badge success" id="nav-report-count">0</span>
+                </button>
+
+                <div class="nav-group-label">ARCHITECTURE & VERIFICATION</div>
+                <button class="nav-item special-nav" data-tab="oop-showcase">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+                    </svg>
+                    <span>OOP Architecture Lab</span>
+                    <span class="nav-badge info">Verify</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="storage-indicator">
+                    <span class="status-indicator-dot online"></span>
+                    <div class="storage-text">
+                        <strong>Connecting to cloud database...</strong>
+                        <span id="storage-record-summary">Loading storage...</span>
+                    </div>
+                </div>
+                <div class="footer-actions">
+                    <button class="btn-text-danger" id="btn-seed-data" title="Reload realistic default sample records">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+                        Reset Demo Data
+                    </button>
+                    <button class="btn-text-danger" id="btn-clear-data" title="Clear all saved laboratory records">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                        Clear Storage
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ================= MAIN CONTENT AREA ================= -->
+        <div class="main-wrapper">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle Sidebar">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                    <div class="breadcrumb">
+                        <span class="breadcrumb-sub">Diagnostic Lab</span>
+                        <span class="breadcrumb-sep">/</span>
+                        <span class="breadcrumb-curr" id="active-breadcrumb">Dashboard</span>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="live-clock">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        <span id="live-clock-text">Thursday, Nov 19, 2026</span>
+                    </div>
+
+                    <div class="topbar-actions">
+                        <button class="btn-primary-sm" id="btn-quick-patient">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            <span>Add Patient</span>
+                        </button>
+                        <button class="btn-outline-sm" id="btn-quick-test">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            <span>Order Test</span>
+                        </button>
+                    </div>
+
+                    <div class="user-chip">
+                        <div class="user-avatar">DR</div>
+                        <div class="user-info">
+                            <span class="user-name">Dr. Arthur Vance</span>
+                            <span class="user-role">Lead Pathologist</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Container with Tabs -->
+            <main class="content-container">
+
+                <!-- ================= TAB 1: DASHBOARD ================= -->
+                <section class="tab-pane active" id="tab-dashboard">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Diagnostic Laboratory Overview</h1>
+                            <p class="page-subtitle">Real-time clinical metrics, specimen intake, processing queue, and diagnostic reports</p>
+                        </div>
+                        <div class="header-badges">
+                            <span class="live-tag"><span class="pulse-indicator"></span> Realtime LocalStorage Database</span>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card" data-stat="patients">
+                            <div class="stat-icon-wrap blue">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <div class="stat-meta">
+                                <span class="stat-label">Total Patients</span>
+                                <h3 class="stat-value" id="stat-total-patients">0</h3>
+                                <span class="stat-trend positive">Active Records</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" data-stat="tests">
+                            <div class="stat-icon-wrap indigo">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5h0c-1.4 0-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><path d="M9 16h6"/>
+                                </svg>
+                            </div>
+                            <div class="stat-meta">
+                                <span class="stat-label">Total Lab Tests</span>
+                                <h3 class="stat-value" id="stat-total-tests">0</h3>
+                                <span class="stat-trend neutral">All Categories</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" data-stat="samples">
+                            <div class="stat-icon-wrap amber">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/>
+                                </svg>
+                            </div>
+                            <div class="stat-meta">
+                                <span class="stat-label">Samples Collected</span>
+                                <h3 class="stat-value" id="stat-samples-collected">0</h3>
+                                <span class="stat-trend" id="stat-samples-sub">Specimens Logged</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" data-stat="completed">
+                            <div class="stat-icon-wrap cyan">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <div class="stat-meta">
+                                <span class="stat-label">Tests Completed</span>
+                                <h3 class="stat-value" id="stat-tests-completed">0</h3>
+                                <span class="stat-trend positive">Processed & Verified</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" data-stat="reports">
+                            <div class="stat-icon-wrap green">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                                </svg>
+                            </div>
+                            <div class="stat-meta">
+                                <span class="stat-label">Reports Generated</span>
+                                <h3 class="stat-value" id="stat-reports-generated">0</h3>
+                                <span class="stat-trend positive">Ready to Print/PDF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Action & Distribution Hub -->
+                    <div class="dashboard-grid-2col">
+                        <!-- Quick Workflow Actions -->
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h3>Quick Clinical Workflows</h3>
+                                <span class="badge-pill">Immediate Access</span>
+                            </div>
+                            <div class="workflow-actions-grid">
+                                <button class="workflow-btn" onclick="UI.navigateTo('patients'); UI.openAddPatientModal();">
+                                    <div class="wf-icon blue">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                                    </div>
+                                    <div class="wf-content">
+                                        <strong>1. Register Patient</strong>
+                                        <span>Add demographic & medical records</span>
+                                    </div>
+                                </button>
+
+                                <button class="workflow-btn" onclick="UI.navigateTo('tests'); UI.openAssignTestModal();">
+                                    <div class="wf-icon indigo">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5h0c-1.4 0-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="10" y1="11" x2="14" y2="11"/></svg>
+                                    </div>
+                                    <div class="wf-content">
+                                        <strong>2. Order Diagnostic Test</strong>
+                                        <span>Blood, Urine, or Imaging categories</span>
+                                    </div>
+                                </button>
+
+                                <button class="workflow-btn" onclick="UI.navigateTo('samples'); UI.openSampleCollectModal();">
+                                    <div class="wf-icon amber">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><circle cx="12" cy="12" r="2"/></svg>
+                                    </div>
+                                    <div class="wf-content">
+                                        <strong>3. Collect Specimen</strong>
+                                        <span>Log barcode & specimen status</span>
+                                    </div>
+                                </button>
+
+                                <button class="workflow-btn" onclick="UI.navigateTo('processing');">
+                                    <div class="wf-icon cyan">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                    </div>
+                                    <div class="wf-content">
+                                        <strong>4. Run Test Processing</strong>
+                                        <span>Polymorphic OOP simulation</span>
+                                    </div>
+                                </button>
+
+                                <button class="workflow-btn" onclick="UI.navigateTo('results');">
+                                    <div class="wf-icon purple">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                                    </div>
+                                    <div class="wf-content">
+                                        <strong>5. Enter Test Results</strong>
+                                        <span>Specific parameters with reference ranges</span>
+                                    </div>
+                                </button>
+
+                                <button class="workflow-btn" onclick="UI.navigateTo('reports');">
+                                    <div class="wf-icon green">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+                                    </div>
+                                    <div class="wf-content">
+                                        <strong>6. Print Lab Report</strong>
+                                        <span>Professional report generator & PDF</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Test Category Distribution & Lab Status -->
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h3>Test Categories & Modality Ratio</h3>
+                                <span class="badge-pill info">Automated Counts</span>
+                            </div>
+                            <div class="category-bars-wrap">
+                                <div class="category-bar-item">
+                                    <div class="cat-bar-header">
+                                        <span class="cat-title">
+                                            <span class="color-dot blood-dot"></span> Blood Tests (CBC, Glucose, Hemoglobin)
+                                        </span>
+                                        <span class="cat-count" id="dash-blood-count">0 tests</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div class="progress-fill blood-fill" id="dash-blood-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="category-bar-item">
+                                    <div class="cat-bar-header">
+                                        <span class="cat-title">
+                                            <span class="color-dot urine-dot"></span> Urine Tests (Routine Exam, Culture)
+                                        </span>
+                                        <span class="cat-count" id="dash-urine-count">0 tests</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div class="progress-fill urine-fill" id="dash-urine-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="category-bar-item">
+                                    <div class="cat-bar-header">
+                                        <span class="cat-title">
+                                            <span class="color-dot imaging-dot"></span> Imaging Tests (X-Ray, Ultrasound)
+                                        </span>
+                                        <span class="cat-count" id="dash-imaging-count">0 tests</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div class="progress-fill imaging-fill" id="dash-imaging-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="lab-quality-badges">
+                                <div class="quality-badge">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    <span>ISO 15189:2022 Medical Lab Standard</span>
+                                </div>
+                                <div class="quality-badge">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                                    <span>Avg Turnaround: 2.4 Hours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Requisitions Table Widget -->
+                    <div class="table-card mt-24">
+                        <div class="table-card-header">
+                            <div>
+                                <h3>Recent Patient Requisitions</h3>
+                                <p class="table-sub">Latest active laboratory test orders in the system</p>
+                            </div>
+                            <button class="btn-outline-sm" onclick="UI.navigateTo('tests')">View All Tests</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Test ID</th>
+                                        <th>Patient ID & Name</th>
+                                        <th>Category</th>
+                                        <th>Test Name</th>
+                                        <th>Assigned Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-recent-tests-body">
+                                    <!-- Populated via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB 2: PATIENT MANAGEMENT ================= -->
+                <section class="tab-pane" id="tab-patients">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Patient Management</h1>
+                            <p class="page-subtitle">Patient registration, demographic tracking, and history management using encapsulated objects</p>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn-primary" id="btn-add-patient-modal">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                <span>Register New Patient</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filter & Search Toolbar -->
+                    <div class="filter-toolbar">
+                        <div class="search-input-wrap">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="patient-search-input" placeholder="Search patients by ID, Name, or Phone...">
+                        </div>
+                        <div class="filter-group">
+                            <select id="patient-gender-filter" class="form-select-sm">
+                                <option value="">All Genders</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Patients Table -->
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="patients-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient ID</th>
+                                        <th>Full Name</th>
+                                        <th>Age / Gender</th>
+                                        <th>Phone Number</th>
+                                        <th>Blood Group</th>
+                                        <th>Registered Date</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patients-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-pagination-footer" id="patient-count-footer">
+                            Showing 0 of 0 patient records
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB 3: TEST MANAGEMENT ================= -->
+                <section class="tab-pane" id="tab-tests">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Laboratory Test Orders</h1>
+                            <p class="page-subtitle">Assign diagnostic tests across Blood, Urine, and Imaging categories</p>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn-primary" id="btn-assign-test-modal">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                <span>Assign Test to Patient</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category Tabs & Search -->
+                    <div class="filter-toolbar">
+                        <div class="search-input-wrap">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="test-search-input" placeholder="Search test orders by Test ID, Patient Name...">
+                        </div>
+                        <div class="filter-pills" id="test-category-pills">
+                            <button class="pill-btn active" data-category="ALL">All Categories</button>
+                            <button class="pill-btn" data-category="Blood Test">Blood Tests</button>
+                            <button class="pill-btn" data-category="Urine Test">Urine Tests</button>
+                            <button class="pill-btn" data-category="Imaging Test">Imaging Tests</button>
+                        </div>
+                        <div class="filter-group">
+                            <select id="test-status-filter" class="form-select-sm">
+                                <option value="">All Statuses</option>
+                                <option value="Assigned">Assigned</option>
+                                <option value="Sample Collected">Sample Collected</option>
+                                <option value="In Processing">In Processing</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Test Catalog Quick Reference Cards -->
+                    <div class="test-catalog-grid">
+                        <div class="catalog-card blood">
+                            <div class="catalog-header">
+                                <span class="badge-cat blood">Blood Tests</span>
+                                <h4>Hematology & Biochemistry</h4>
+                            </div>
+                            <ul class="catalog-list">
+                                <li><strong>Complete Blood Count (CBC)</strong> - RBC, WBC, Hemoglobin, Platelets</li>
+                                <li><strong>Blood Glucose</strong> - Fasting, Post-Prandial, HbA1c</li>
+                                <li><strong>Hemoglobin</strong> - Concentration & Blood Typing</li>
+                            </ul>
+                            <div class="catalog-footer">
+                                <span>Sample: EDTA Whole Blood / Serum</span>
+                            </div>
+                        </div>
+
+                        <div class="catalog-card urine">
+                            <div class="catalog-header">
+                                <span class="badge-cat urine">Urine Tests</span>
+                                <h4>Clinical Urinalysis & Microbiology</h4>
+                            </div>
+                            <ul class="catalog-list">
+                                <li><strong>Urine Routine Examination</strong> - Physical, Chemical & Microscopic</li>
+                                <li><strong>Urine Culture & Sensitivity</strong> - Colony Count & Antibiotic Profile</li>
+                            </ul>
+                            <div class="catalog-footer">
+                                <span>Sample: Sterile Midstream Specimen</span>
+                            </div>
+                        </div>
+
+                        <div class="catalog-card imaging">
+                            <div class="catalog-header">
+                                <span class="badge-cat imaging">Imaging Tests</span>
+                                <h4>Diagnostic Radiology & Ultrasound</h4>
+                            </div>
+                            <ul class="catalog-list">
+                                <li><strong>Digital X-Ray</strong> - Chest PA / Skeletal Projections</li>
+                                <li><strong>High-Resolution Ultrasound</strong> - Abdomen & Pelvis Sonography</li>
+                            </ul>
+                            <div class="catalog-footer">
+                                <span>Procedure: Digital Modality Acquisition</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tests Table -->
+                    <div class="table-card mt-24">
+                        <div class="table-responsive">
+                            <table class="data-table" id="tests-table">
+                                <thead>
+                                    <tr>
+                                        <th>Test ID</th>
+                                        <th>Patient ID & Name</th>
+                                        <th>Category</th>
+                                        <th>Test Name</th>
+                                        <th>Date Assigned</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tests-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB 4: SAMPLE COLLECTION ================= -->
+                <section class="tab-pane" id="tab-samples">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Sample Collection & Specimen Tracking</h1>
+                            <p class="page-subtitle">Barcode specimen logging, collection timestamps, and status chain-of-custody</p>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn-primary" id="btn-collect-sample-modal">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                <span>Log New Specimen Sample</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-toolbar">
+                        <div class="search-input-wrap">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="sample-search-input" placeholder="Search samples by Sample ID, Test ID, Patient...">
+                        </div>
+                        <div class="filter-group">
+                            <select id="sample-status-filter" class="form-select-sm">
+                                <option value="">All Sample Statuses</option>
+                                <option value="Pending Collection">Pending Collection</option>
+                                <option value="Collected">Collected</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Samples Table -->
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="samples-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sample ID / Barcode</th>
+                                        <th>Linked Test ID</th>
+                                        <th>Patient Name</th>
+                                        <th>Sample Specimen Type</th>
+                                        <th>Collection Date & Time</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="samples-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB 5: TEST PROCESSING ================= -->
+                <section class="tab-pane" id="tab-processing">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Laboratory Test Processing Simulator</h1>
+                            <p class="page-subtitle">Interactive polymorphic simulation of automated laboratory diagnostic analyzers</p>
+                        </div>
+                        <div class="header-badges">
+                            <span class="badge-pill info">Polymorphism: method overriding via LabTest.processTest()</span>
+                        </div>
+                    </div>
+
+                    <!-- Processing Workspace -->
+                    <div class="processing-workspace-grid">
+                        <!-- Pending Queue Column -->
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h3>Specimen Processing Queue</h3>
+                                <span class="badge-pill warning" id="queue-pending-count">0 Waiting</span>
+                            </div>
+                            <p class="section-desc">Select an assigned test or collected sample to trigger its specific polymorphic procedure:</p>
+                            <div class="processing-queue-list" id="processing-queue-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Active Processing Simulator Display -->
+                        <div class="dash-card active-simulator-card" id="simulator-card">
+                            <div class="dash-card-header">
+                                <h3>Diagnostic Analyzer Workbench</h3>
+                                <span class="status-badge status-pending" id="sim-status-badge">Standby</span>
+                            </div>
+
+                            <div class="simulator-placeholder" id="sim-placeholder">
+                                <div class="sim-empty-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/>
+                                    </svg>
+                                </div>
+                                <h4>No Test Selected for Processing</h4>
+                                <p>Select an item from the processing queue on the left to initiate the automated clinical assay procedure.</p>
+                            </div>
+
+                            <div class="simulator-active-view hidden" id="sim-active-view">
+                                <div class="sim-specimen-meta">
+                                    <div class="sim-meta-item">
+                                        <span class="label">Test ID:</span>
+                                        <strong id="sim-test-id">TST-000</strong>
+                                    </div>
+                                    <div class="sim-meta-item">
+                                        <span class="label">Patient:</span>
+                                        <strong id="sim-patient-name">Patient Name</strong>
+                                    </div>
+                                    <div class="sim-meta-item">
+                                        <span class="label">Category:</span>
+                                        <span class="badge-cat" id="sim-category-badge">Blood Test</span>
+                                    </div>
+                                    <div class="sim-meta-item">
+                                        <span class="label">OOP Class:</span>
+                                        <code class="code-pill" id="sim-oop-class">BloodTest extends LabTest</code>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Visual Machine Animation -->
+                                <div class="machine-animation-stage" id="machine-stage">
+                                    <!-- Animated graphic injected based on test category -->
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div class="sim-progress-box">
+                                    <div class="sim-progress-header">
+                                        <span id="sim-step-name">Calibrating instrument...</span>
+                                        <strong id="sim-percent">0%</strong>
+                                    </div>
+                                    <div class="sim-progress-track">
+                                        <div class="sim-progress-fill" id="sim-progress-fill" style="width: 0%"></div>
+                                    </div>
+                                    <p class="sim-step-detail" id="sim-step-detail">Initializing hardware sensors and standard reference controls...</p>
+                                </div>
+
+                                <!-- Real-time Execution Log Box -->
+                                <div class="sim-log-box">
+                                    <div class="sim-log-header">
+                                        <span>ANALYZER TELEMETRY & EXECUTION LOG</span>
+                                        <span class="dot-live"></span>
+                                    </div>
+                                    <div class="sim-log-content" id="sim-log-content">
+                                        <!-- Real-time log lines appended here -->
+                                    </div>
+                                </div>
+
+                                <!-- Simulation Action Control -->
+                                <div class="sim-action-footer" id="sim-action-footer">
+                                    <button class="btn-primary" id="btn-start-simulation">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                        Execute processTest()
+                                    </button>
+                                    <button class="btn-success hidden" id="btn-proceed-results">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                                        Proceed to Result Entry
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB 6: RESULT MANAGEMENT ================= -->
+                <section class="tab-pane" id="tab-results">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Test Result Management</h1>
+                            <p class="page-subtitle">Enter clinical parameters, validate biological reference ranges, and record pathologist sign-offs</p>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn-primary" id="btn-enter-result-manual">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                <span>Enter New Results</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-toolbar">
+                        <div class="search-input-wrap">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="result-search-input" placeholder="Search completed test results by Patient or Test ID...">
+                        </div>
+                    </div>
+
+                    <!-- Results Master Table -->
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>Result ID</th>
+                                        <th>Linked Test ID</th>
+                                        <th>Patient Name</th>
+                                        <th>Test Name & Category</th>
+                                        <th>Date Recorded</th>
+                                        <th>Findings Summary</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB 7: REPORT GENERATION ================= -->
+                <section class="tab-pane" id="tab-reports">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Diagnostic Laboratory Reports</h1>
+                            <p class="page-subtitle">Standardized printable clinical reports implementing the ReportGenerator contract</p>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn-outline" id="btn-quick-generate-report">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <span>Generate Report from Result</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Reports Table -->
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="reports-table">
+                                <thead>
+                                    <tr>
+                                        <th>Report ID</th>
+                                        <th>Patient Name & ID</th>
+                                        <th>Test Category & Name</th>
+                                        <th>Sample ID</th>
+                                        <th>Generated Timestamp</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reports-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB 8: OOP ARCHITECTURE SHOWCASE ================= -->
+                <section class="tab-pane" id="tab-oop-showcase">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Object-Oriented Programming (OOP) Architecture Lab</h1>
+                            <p class="page-subtitle">Interactive verification and live execution test suite for all required JavaScript OOP concepts</p>
+                        </div>
+                        <div class="header-badges">
+                            <span class="badge-pill success">Mandatory Section 2 Compliance</span>
+                        </div>
+                    </div>
+
+                    <!-- OOP Concepts Interactive Cards Grid -->
+                    <div class="oop-grid">
+                        <!-- Concept A: Encapsulation -->
+                        <div class="oop-card">
+                            <div class="oop-header">
+                                <span class="oop-tag blue">Concept A</span>
+                                <h3>Encapsulation</h3>
+                            </div>
+                            <p class="oop-desc">
+                                Implemented in the <code>Patient</code> class using private fields (<code>#patientId</code>, <code>#patientName</code>, <code>#age</code>, <code>#gender</code>, <code>#phoneNumber</code>). Direct external access to private properties is strictly prohibited by JavaScript runtime. Controlled access and data validation are provided via public getters and setters.
+                            </p>
+                            <div class="code-snippet-box">
+<pre><code>class Patient {
+  #patientId;
+  #patientName;
+  #age;
+  #gender;
+  #phoneNumber;
+
+  get patientName() { return this.#patientName; }
+  set patientName(name) {
+    if (!name || name.trim().length &lt; 2)
+      throw new Error("Invalid name");
+    this.#patientName = name.trim();
+  }
+}</code></pre>
+                            </div>
+                            <div class="oop-card-actions">
+                                <button class="btn-outline-sm" onclick="OOPLab.testEncapsulation()">
+                                    Test Encapsulation
+                                </button>
+                                <button class="btn-outline-sm" onclick="OOPLab.testPrivateViolation()">
+                                    Verify Private Field Violation
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Concept B & C: Inheritance & Abstraction -->
+                        <div class="oop-card">
+                            <div class="oop-header">
+                                <span class="oop-tag purple">Concepts B & C</span>
+                                <h3>Inheritance & Abstraction</h3>
+                            </div>
+                            <p class="oop-desc">
+                                Abstract parent class <code>LabTest</code> prevents direct instantiation (<code>new.target === LabTest</code>) and defines the abstract contract method <code>processTest()</code>. Concrete child classes <code>BloodTest</code>, <code>UrineTest</code>, and <code>ImagingTest</code> extend <code>LabTest</code>.
+                            </p>
+                            <div class="code-snippet-box">
+<pre><code>class LabTest {
+  constructor(...) {
+    if (new.target === LabTest)
+      throw new Error("Cannot instantiate abstract class LabTest.");
+  }
+  processTest() {
+    throw new Error("processTest() must be implemented.");
+  }
+}
+class BloodTest extends LabTest { ... }</code></pre>
+                            </div>
+                            <div class="oop-card-actions">
+                                <button class="btn-outline-sm" onclick="OOPLab.testAbstractDirectInstantiation()">
+                                    Test Abstract Instantiation (Throws Error)
+                                </button>
+                                <button class="btn-outline-sm" onclick="OOPLab.testSubclassInheritance()">
+                                    Verify Subclass Inheritance
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Concept D: Polymorphism -->
+                        <div class="oop-card">
+                            <div class="oop-header">
+                                <span class="oop-tag cyan">Concept D</span>
+                                <h3>Polymorphism (Runtime Overriding)</h3>
+                            </div>
+                            <p class="oop-desc">
+                                Each subclass overrides <code>processTest()</code> with distinct clinical procedures:
+                                <strong>BloodTest</strong> (centrifugation & optical flow cytometry),
+                                <strong>UrineTest</strong> (photometric dry chemistry & sediment microscopy),
+                                <strong>ImagingTest</strong> (radiation calibration & DICOM reconstruction).
+                            </p>
+                            <div class="code-snippet-box">
+<pre><code>// Dynamic Polymorphic Dispatch:
+const tests = [new BloodTest(), new UrineTest(), new ImagingTest()];
+for (const test of tests) {
+  // Runtime polymorphism executes subclass-specific method:
+  await test.processTest();
+}</code></pre>
+                            </div>
+                            <div class="oop-card-actions">
+                                <button class="btn-outline-sm" onclick="OOPLab.testPolymorphism()">
+                                    Run Polymorphic Method Dispatch
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Concept E: Interface-like Implementation -->
+                        <div class="oop-card">
+                            <div class="oop-header">
+                                <span class="oop-tag green">Concept E</span>
+                                <h3>Interface-like Contract</h3>
+                            </div>
+                            <p class="oop-desc">
+                                JavaScript does not feature native interfaces. We implement a formal contract using <code>IReportGenerator</code> base class that enforces <code>generateReport()</code> and <code>formatResults()</code> methods. <code>LabReport</code> inherits and adheres strictly to this contract.
+                            </p>
+                            <div class="code-snippet-box">
+<pre><code>class IReportGenerator {
+  generateReport(data) {
+    throw new Error("Interface contract method not implemented");
+  }
+}
+class LabReport extends IReportGenerator {
+  generateReport(data) { ... }
+}</code></pre>
+                            </div>
+                            <div class="oop-card-actions">
+                                <button class="btn-outline-sm" onclick="OOPLab.testInterfaceContract()">
+                                    Verify Interface Contract
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Concept F: Custom Exception Handling -->
+                        <div class="oop-card">
+                            <div class="oop-header">
+                                <span class="oop-tag amber">Concept F</span>
+                                <h3>Custom Exception Handling</h3>
+                            </div>
+                            <p class="oop-desc">
+                                Custom JavaScript error classes extending native <code>Error</code>:
+                                <code>PatientNotFoundError</code>,
+                                <code>InvalidSampleError</code>,
+                                <code>TestNotFoundError</code>, and
+                                <code>InvalidResultError</code>. Used with <code>try-catch</code> blocks to render friendly toast alerts.
+                            </p>
+                            <div class="code-snippet-box">
+<pre><code>class PatientNotFoundError extends Error {
+  constructor(msg = "Patient record not found") {
+    super(msg);
+    this.name = "PatientNotFoundError";
+  }
+}</code></pre>
+                            </div>
+                            <div class="oop-card-actions">
+                                <button class="btn-outline-sm" onclick="OOPLab.testExceptionHandling()">
+                                    Trigger & Catch Custom Errors
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Concept G: Collections Management -->
+                        <div class="oop-card">
+                            <div class="oop-header">
+                                <span class="oop-tag indigo">Concept G</span>
+                                <h3>Collections & State Management</h3>
+                            </div>
+                            <p class="oop-desc">
+                                Structured JavaScript arrays and dictionary maps manage collections of:
+                                <code>patients</code>, <code>tests</code>, <code>samples</code>, <code>results</code>, and <code>reports</code>, with seamless bi-directional serialization to browser <code>LocalStorage</code>.
+                            </p>
+                            <div class="code-snippet-box">
+<pre><code>class LabDataManager {
+  #patients = []; // Encapsulated collection
+  #tests = [];
+  #samples = [];
+  #results = [];
+  #reports = [];
+}</code></pre>
+                            </div>
+                            <div class="oop-card-actions">
+                                <button class="btn-outline-sm" onclick="OOPLab.inspectCollections()">
+                                    Inspect Live Collections
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live OOP Test Console Output -->
+                    <div class="oop-console-card mt-24">
+                        <div class="oop-console-header">
+                            <div class="console-title">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                                <span>LIVE OOP TEST RUNNER TERMINAL</span>
+                            </div>
+                            <button class="btn-text-sm" onclick="OOPLab.clearConsole()">Clear Terminal Output</button>
+                        </div>
+                        <div class="oop-console-body" id="oop-console-output">
+                            <div class="console-line info">[System]: OOP Architecture Verification Suite Ready. Click any test button above to run live checks.</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- ================= MODALS CONTAINER ================= -->
+
+    <!-- Modal 1: Add/Edit Patient -->
+    <div class="modal-backdrop hidden" id="modal-patient">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 id="modal-patient-title">Register New Patient</h3>
+                <button class="modal-close-btn" onclick="UI.closeModal('modal-patient')">&times;</button>
+            </div>
+            <form id="form-patient">
+                <div class="modal-body">
+                    <input type="hidden" id="patient-form-mode" value="add">
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="inp-patient-id">Patient ID</label>
+                            <input type="text" id="inp-patient-id" readonly class="form-control readonly">
+                            <span class="form-hint">Generated automatically</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inp-patient-name">Full Patient Name *</label>
+                            <input type="text" id="inp-patient-name" required placeholder="e.g. Eleanor Vance" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-3col">
+                        <div class="form-group">
+                            <label for="inp-patient-age">Age (Years) *</label>
+                            <input type="number" id="inp-patient-age" required min="0" max="130" placeholder="e.g. 42" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="inp-patient-gender">Gender *</label>
+                            <select id="inp-patient-gender" required class="form-control">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inp-patient-blood">Blood Group</label>
+                            <select id="inp-patient-blood" class="form-control">
+                                <option value="O+">O Positive (O+)</option>
+                                <option value="O-">O Negative (O-)</option>
+                                <option value="A+">A Positive (A+)</option>
+                                <option value="A-">A Negative (A-)</option>
+                                <option value="B+">B Positive (B+)</option>
+                                <option value="B-">B Negative (B-)</option>
+                                <option value="AB+">AB Positive (AB+)</option>
+                                <option value="AB-">AB Negative (AB-)</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="inp-patient-phone">Phone Number *</label>
+                            <input type="tel" id="inp-patient-phone" required placeholder="e.g. +1 (555) 234-5678" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="inp-patient-date">Registration Date</label>
+                            <input type="date" id="inp-patient-date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inp-patient-address">Address / Notes</label>
+                        <input type="text" id="inp-patient-address" placeholder="Residential city, state or medical notes" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline" onclick="UI.closeModal('modal-patient')">Cancel</button>
+                    <button type="submit" class="btn-primary" id="btn-save-patient">Save Patient Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Assign Test Order -->
+    <div class="modal-backdrop hidden" id="modal-assign-test">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Order Laboratory Diagnostic Test</h3>
+                <button class="modal-close-btn" onclick="UI.closeModal('modal-assign-test')">&times;</button>
+            </div>
+            <form id="form-assign-test">
+                <div class="modal-body">
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="assign-test-id">Test Order ID</label>
+                            <input type="text" id="assign-test-id" readonly class="form-control readonly">
+                        </div>
+                        <div class="form-group">
+                            <label for="assign-patient-select">Select Patient *</label>
+                            <select id="assign-patient-select" required class="form-control">
+                                <!-- Populated dynamically with registered patients -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="assign-test-category">Test Category *</label>
+                            <select id="assign-test-category" required class="form-control">
+                                <option value="Blood Test">Blood Test (Hematology & Biochem)</option>
+                                <option value="Urine Test">Urine Test (Urinalysis & Culture)</option>
+                                <option value="Imaging Test">Imaging Test (Radiology & Ultrasound)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="assign-test-name">Test Name *</label>
+                            <select id="assign-test-name" required class="form-control">
+                                <!-- Populated dynamically based on category -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="assign-test-date">Order Date</label>
+                            <input type="date" id="assign-test-date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="assign-test-priority">Priority</label>
+                            <select id="assign-test-priority" class="form-control">
+                                <option value="Routine">Routine</option>
+                                <option value="Urgent">Urgent</option>
+                                <option value="STAT (Emergency)">STAT (Emergency)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assign-test-notes">Clinical Indication / Referring Physician Notes</label>
+                        <textarea id="assign-test-notes" rows="2" placeholder="e.g. Routine pre-op checkup / evaluate persistent fatigue" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline" onclick="UI.closeModal('modal-assign-test')">Cancel</button>
+                    <button type="submit" class="btn-primary">Create Test Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: Sample Collection -->
+    <div class="modal-backdrop hidden" id="modal-collect-sample">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Log Specimen Sample Collection</h3>
+                <button class="modal-close-btn" onclick="UI.closeModal('modal-collect-sample')">&times;</button>
+            </div>
+            <form id="form-collect-sample">
+                <div class="modal-body">
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="sample-id-inp">Sample ID / Barcode</label>
+                            <input type="text" id="sample-id-inp" readonly class="form-control readonly">
+                        </div>
+                        <div class="form-group">
+                            <label for="sample-test-select">Linked Test Order *</label>
+                            <select id="sample-test-select" required class="form-control">
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sample-patient-display">Associated Patient</label>
+                        <input type="text" id="sample-patient-display" readonly class="form-control readonly" placeholder="Auto-populated upon test selection">
+                    </div>
+
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="sample-type-select">Specimen Sample Type *</label>
+                            <select id="sample-type-select" required class="form-control">
+                                <option value="Whole Blood (EDTA)">Whole Blood (EDTA Tube - Purple Top)</option>
+                                <option value="Serum (SST Tube)">Serum (Clot Activator Tube - Gold Top)</option>
+                                <option value="Fluoride Blood (Glucose)">Sodium Fluoride Tube - Gray Top</option>
+                                <option value="Clean Catch Urine">Clean Catch Urine (Sterile Cup)</option>
+                                <option value="Midstream Urine (MSU)">Midstream Urine Container (Culture Specimen)</option>
+                                <option value="Digital Imaging Order">Digital Imaging Order (Radiology Protocol)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sample-datetime-inp">Collection Date & Time *</label>
+                            <input type="datetime-local" id="sample-datetime-inp" required class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="sample-status-select">Sample Status *</label>
+                            <select id="sample-status-select" required class="form-control">
+                                <option value="Pending Collection">Pending Collection</option>
+                                <option value="Collected" selected>Collected</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sample-phleb-inp">Phlebotomist / Technician</label>
+                            <input type="text" id="sample-phleb-inp" value="Sarah Jenkins, MLS" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline" onclick="UI.closeModal('modal-collect-sample')">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Specimen Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 4: Enter Test Results -->
+    <div class="modal-backdrop hidden" id="modal-enter-result">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header">
+                <div>
+                    <h3 id="result-modal-title">Clinical Test Result Entry</h3>
+                    <p class="modal-sub" id="result-modal-sub">Enter diagnostic parameters based on test category</p>
+                </div>
+                <button class="modal-close-btn" onclick="UI.closeModal('modal-enter-result')">&times;</button>
+            </div>
+            <form id="form-enter-result">
+                <div class="modal-body">
+                    <input type="hidden" id="res-test-id">
+                    <input type="hidden" id="res-patient-id">
+                    <input type="hidden" id="res-sample-id">
+                    <input type="hidden" id="res-test-category">
+                    <input type="hidden" id="res-test-name">
+
+                    <!-- Test Metadata Banner -->
+                    <div class="result-banner">
+                        <div class="banner-item">
+                            <span>Test Order:</span>
+                            <strong id="res-disp-testid">TST-000</strong>
+                        </div>
+                        <div class="banner-item">
+                            <span>Patient:</span>
+                            <strong id="res-disp-patient">Eleanor Vance</strong>
+                        </div>
+                        <div class="banner-item">
+                            <span>Test Name:</span>
+                            <strong id="res-disp-testname">Complete Blood Count (CBC)</strong>
+                        </div>
+                        <div class="banner-item">
+                            <span>Category:</span>
+                            <span class="badge-cat" id="res-disp-cat">Blood Test</span>
+                        </div>
+                        <button type="button" class="btn-outline-sm btn-prefill" id="btn-prefill-realistic" title="Automatically populate standard realistic physiological values for quick evaluation">
+                            ⚡ Auto-Fill Normal Values
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Parameters Container (Tailored by Category & Test) -->
+                    <div class="parameter-section mt-16">
+                        <div class="param-section-title">Diagnostic Findings & Parameters</div>
+                        <div id="dynamic-parameters-container">
+                            <!-- Populated with tailored inputs by test name -->
+                        </div>
+                    </div>
+
+                    <!-- Clinical Interpretation and Signatures -->
+                    <div class="form-grid-2col mt-16">
+                        <div class="form-group">
+                            <label for="res-clinical-notes">Clinical Notes / Technologist Remarks</label>
+                            <textarea id="res-clinical-notes" rows="2" class="form-control" placeholder="Specimen quality, morphology or initial observations..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="res-path-remarks">Pathologist Interpretation & Recommendation</label>
+                            <textarea id="res-path-remarks" rows="2" class="form-control" placeholder="Clinical correlation, impression or diagnostic opinion..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2col">
+                        <div class="form-group">
+                            <label for="res-technician">Medical Laboratory Technologist</label>
+                            <input type="text" id="res-technician" value="Sarah Jenkins, MLS(ASCP)cm" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="res-pathologist">Consultant Clinical Pathologist</label>
+                            <input type="text" id="res-pathologist" value="Dr. Arthur Vance, MD, FACP" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline" onclick="UI.closeModal('modal-enter-result')">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Results & Finalize</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 5: Printable Laboratory Report Preview -->
+    <div class="modal-backdrop hidden" id="modal-report-view">
+        <div class="modal-dialog modal-xl modal-report-dialog">
+            <div class="modal-header modal-report-header-chrome">
+                <div class="report-header-controls">
+                    <h3>Diagnostic Laboratory Report</h3>
+                    <span class="badge-pill info">ISO 15189:2022 Medical Standard</span>
+                </div>
+                <div class="report-action-buttons">
+                    <button class="btn-outline-sm" id="btn-print-report" onclick="window.print()">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        <span>Print Report</span>
+                    </button>
+                    <button class="btn-primary-sm" id="btn-download-pdf">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>Download PDF</span>
+                    </button>
+                    <button class="modal-close-btn" onclick="UI.closeModal('modal-report-view')">&times;</button>
+                </div>
+            </div>
+
+            <!-- The Report Sheet (Printed via @media print) -->
+            <div class="report-paper-container" id="printable-report-sheet">
+                <!-- Dynamically generated by LabReport.generateReport() and rendered via UI.renderReportSheet() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Confirmation Dialog -->
+    <div class="modal-backdrop hidden" id="modal-confirm">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-header">
+                <h3 id="confirm-title">Confirm Action</h3>
+                <button class="modal-close-btn" onclick="UI.closeModal('modal-confirm')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">Are you sure you want to proceed with this operation?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline" id="btn-confirm-cancel">Cancel</button>
+                <button type="button" class="btn-danger" id="btn-confirm-proceed">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Core Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
